@@ -1,6 +1,7 @@
 'use client';
 
-import { motion } from 'framer-motion';
+import { useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 import Link from 'next/link';
 import ScrollIndicator from '@/components/ScrollIndicator';
 import { FadeIn, StaggerContainer, StaggerItem } from '@/components/animations';
@@ -9,21 +10,27 @@ import { ArrowRight, Code2, Sparkles, Shield, Braces, Terminal, Cpu } from 'luci
 const philosophyItems = [
   {
     number: '01',
-    title: 'Save Your Time',
-    description: 'Stop wasting hours on repetitive tasks. We build automation that handles the boring stuff so you can focus on growing your business.',
+    title: 'Reclaim Your Time',
+    description: 'Automate repetitive tasks so your team can focus on high-impact work that drives growth.',
     icon: Code2,
   },
   {
     number: '02',
-    title: 'Real ROI, Not Gimmicks',
-    description: 'Practical AI solutions that actually deliver value. No flashy demos that never work—just tools that save you time and money.',
+    title: 'Measurable Results',
+    description: 'Every solution we build is designed to deliver tangible ROI—real cost savings and efficiency gains you can track.',
     icon: Sparkles,
   },
   {
     number: '03',
-    title: 'Built for Small Business',
-    description: 'Solutions designed for your scale and budget. Enterprise-quality automation without the enterprise price tag.',
+    title: 'Enterprise Quality, Fair Pricing',
+    description: 'Get the same powerful automation tools that large companies use—priced right for growing businesses.',
     icon: Shield,
+  },
+  {
+    number: '04',
+    title: 'Tailored to Your Workflow',
+    description: 'No one-size-fits-all solutions. We build custom automation that fits seamlessly into how you already work.',
+    icon: Braces,
   },
 ];
 
@@ -51,6 +58,77 @@ const services = [
   },
 ];
 
+// Service type for the accordion
+type Service = {
+  name: string;
+  category: string;
+  status: string;
+  statusColor: string;
+  description: string;
+};
+
+// Click-based accordion component with smooth animations
+function ServiceAccordion({ services }: { services: Service[] }) {
+  const [expandedIndex, setExpandedIndex] = useState<number | null>(null);
+
+  const toggleService = (index: number) => {
+    setExpandedIndex(expandedIndex === index ? null : index);
+  };
+
+  return (
+    <div className="space-y-0 border-t border-white/10">
+      {services.map((service, index) => (
+        <FadeIn key={service.name}>
+          <div className="relative border-b border-white/10">
+            {/* Clickable Header */}
+            <button
+              onClick={() => toggleService(index)}
+              className="w-full py-6 sm:py-8 md:py-10 px-2 sm:px-4 text-left cursor-pointer transition-colors duration-500 hover:bg-white/[0.02]"
+            >
+              <div className="flex flex-col md:flex-row md:items-center justify-between gap-3 sm:gap-4">
+                <div className="flex items-center gap-4">
+                  <h3 className={`text-xl sm:text-2xl md:text-3xl font-light tracking-[0.1em] sm:tracking-[0.15em] transition-colors duration-500 ${expandedIndex === index ? 'text-[#B84C4C]' : 'text-white'}`}>
+                    {service.name}
+                  </h3>
+                  {/* Minimal plus/minus indicator */}
+                  <div className="relative w-4 h-4 flex items-center justify-center">
+                    <span className={`absolute w-3 h-[1.5px] bg-white/40 transition-all duration-500 ${expandedIndex === index ? 'bg-[#B84C4C]/60' : ''}`} />
+                    <span className={`absolute w-[1.5px] h-3 bg-white/40 transition-all duration-500 ${expandedIndex === index ? 'opacity-0 rotate-90 bg-[#B84C4C]/60' : 'opacity-100'}`} />
+                  </div>
+                </div>
+                <div className="flex items-center gap-3 sm:gap-4">
+                  <span className="text-xs sm:text-sm text-white/40 font-mono">{service.category}</span>
+                  <span className="w-8 sm:w-12 h-[1px] bg-white/10" />
+                  <span className={`text-[10px] sm:text-xs font-mono border px-2 py-1 uppercase ${service.statusColor}`}>
+                    {service.status}
+                  </span>
+                </div>
+              </div>
+            </button>
+
+            {/* Expandable Content with smooth animation */}
+            <AnimatePresence>
+              {expandedIndex === index && (
+                <motion.div
+                  initial={{ height: 0, opacity: 0 }}
+                  animate={{ height: 'auto', opacity: 1 }}
+                  exit={{ height: 0, opacity: 0 }}
+                  transition={{ duration: 0.5, ease: [0.25, 0.1, 0.25, 1] }}
+                  className="overflow-hidden"
+                >
+                  <p className="px-2 sm:px-4 pb-6 sm:pb-8 text-sm sm:text-base text-white/60 font-normal max-w-lg">
+                    {service.description}
+                  </p>
+                </motion.div>
+              )}
+            </AnimatePresence>
+          </div>
+        </FadeIn>
+      ))}
+    </div>
+  );
+}
+
 export default function HomePage() {
   return (
     <div className="relative">
@@ -69,9 +147,6 @@ export default function HomePage() {
             transition={{ duration: 30, repeat: Infinity, ease: 'linear' }}
             className="absolute w-[35vw] md:w-[40vh] h-[35vw] md:h-[40vh] border border-[#B84C4C]/20 rounded-full"
           />
-          {/* Grid lines */}
-          <div className="absolute h-[60vh] md:h-[80vh] w-[1px] bg-gradient-to-b from-transparent via-white/20 to-transparent" />
-          <div className="absolute h-[1px] w-[60vw] md:w-[80vh] bg-gradient-to-r from-transparent via-white/10 to-transparent" />
         </div>
 
         {/* Vertical Text */}
@@ -105,18 +180,16 @@ export default function HomePage() {
             transition={{ delay: 0.5, duration: 1 }}
             className="mt-8 sm:mt-12 md:mt-16 flex flex-col items-center gap-4 sm:gap-6 w-full"
           >
-            <div className="h-[40px] sm:h-[60px] w-[1px] bg-[#B84C4C]/50" />
-
             {/* Tagline */}
             <h2 className="text-base sm:text-lg md:text-2xl font-light text-white tracking-wide">
-              Automation for small businesses.
+              Intelligent Automation for Growing Businesses
             </h2>
 
             <p className="max-w-sm sm:max-w-md text-sm md:text-base font-normal leading-relaxed text-white/70 mt-1 sm:mt-2 px-2">
-              Save time. Cut costs. Get real ROI.
+              Save time. Cut costs.
               <br className="hidden sm:block" />
               <span className="sm:hidden"> </span>
-              AI that actually works for your business.
+              AI tools that actually work for your business.
             </p>
 
             {/* CTA Buttons */}
@@ -173,21 +246,19 @@ export default function HomePage() {
               </h2>
             </FadeIn>
 
-            <StaggerContainer className="grid grid-cols-1 md:grid-cols-2 gap-x-12 md:gap-x-24 gap-y-12 sm:gap-y-16 md:gap-y-24" staggerDelay={0.15}>
-              {philosophyItems.map((item, index) => (
+            <StaggerContainer className="grid grid-cols-1 md:grid-cols-2 gap-x-12 md:gap-x-24 gap-y-12 sm:gap-y-16 md:gap-y-20" staggerDelay={0.15}>
+              {philosophyItems.map((item) => (
                 <StaggerItem key={item.title}>
-                  <div className={`group ${index === 1 ? 'md:col-start-2' : ''}`}>
-                    <div className="flex justify-between items-baseline mb-6 relative">
-                      <span className="text-xs font-mono text-[#B84C4C]">{item.number}</span>
+                  <div>
+                    <div className="flex justify-between items-baseline mb-4 relative">
+                      <span className="text-sm font-mono text-[#B84C4C]">{item.number}</span>
                     </div>
-                    <h3 className="text-xl font-normal text-white mb-4 tracking-wide group-hover:translate-x-2 transition-transform duration-500">
+                    <h3 className="text-xl sm:text-2xl font-normal text-white mb-4 tracking-wide">
                       {item.title}
                     </h3>
-                    <div className="max-h-0 overflow-hidden group-hover:max-h-32 transition-all duration-500 ease-in-out">
-                      <p className="text-sm leading-7 text-white/60 font-normal border-l border-white/10 pl-6 py-2 group-hover:border-[#B84C4C]/50 transition-colors duration-500">
-                        {item.description}
-                      </p>
-                    </div>
+                    <p className="text-base leading-7 text-white/60 font-normal border-l border-[#B84C4C]/50 pl-6 py-2">
+                      {item.description}
+                    </p>
                   </div>
                 </StaggerItem>
               ))}
@@ -207,7 +278,7 @@ export default function HomePage() {
               Intelligent Solutions
             </h2>
             <p className="text-white/60 font-normal text-sm sm:text-base max-w-md sm:max-w-xl mx-auto leading-relaxed px-2">
-              Practical AI solutions for small businesses. Save time, cut costs, get results.
+              Custom-built AI tools and automation that help ambitious businesses scale efficiently.
             </p>
           </FadeIn>
 
@@ -268,32 +339,8 @@ export default function HomePage() {
               </p>
             </FadeIn>
 
-            {/* Service List */}
-            <div className="space-y-0 border-t border-white/10">
-              {services.map((service) => (
-                <FadeIn key={service.name}>
-                  <div className="group relative py-6 sm:py-8 md:py-12 border-b border-white/10 hover:bg-white/[0.02] transition-colors">
-                    <div className="flex flex-col md:flex-row md:items-baseline justify-between gap-3 sm:gap-4 px-2 sm:px-4">
-                      <h3 className="text-lg sm:text-xl md:text-2xl lg:text-3xl font-light tracking-[0.1em] sm:tracking-[0.15em] text-white group-hover:text-[#B84C4C] transition-colors duration-500">
-                        {service.name}
-                      </h3>
-                      <div className="flex items-center gap-3 sm:gap-4">
-                        <span className="text-[10px] sm:text-xs text-white/40 font-mono">{service.category}</span>
-                        <span className="w-8 sm:w-12 h-[1px] bg-white/10" />
-                        <span className={`text-[9px] sm:text-[10px] font-mono border px-2 py-1 uppercase ${service.statusColor}`}>
-                          {service.status}
-                        </span>
-                      </div>
-                    </div>
-                    <div className="max-h-0 overflow-hidden group-hover:max-h-24 transition-all duration-700 ease-in-out">
-                      <p className="pt-3 sm:pt-4 px-2 sm:px-4 text-xs sm:text-sm text-white/60 font-normal max-w-lg">
-                        {service.description}
-                      </p>
-                    </div>
-                  </div>
-                </FadeIn>
-              ))}
-            </div>
+            {/* Service List - Click-based Accordion */}
+            <ServiceAccordion services={services} />
 
             {/* CTA */}
             <FadeIn className="mt-12 sm:mt-16 md:mt-24 pt-8 sm:pt-10 md:pt-12 border-t border-white/5">
@@ -301,10 +348,10 @@ export default function HomePage() {
                 <div className="max-w-sm sm:max-w-md">
                   <h4 className="text-lg sm:text-xl text-white font-light mb-3 sm:mb-4">Start Your Project</h4>
                   <p className="text-xs sm:text-sm text-white/50 leading-relaxed font-normal">
-                    Ready to automate your business?
+                    Ready to get more done with less effort?
                     <br className="hidden sm:block" />
                     <span className="sm:hidden"> </span>
-                    Let's build something that saves you time and money.
+                    Let&apos;s build the right tools for your business.
                   </p>
                 </div>
                 <Link

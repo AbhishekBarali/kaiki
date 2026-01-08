@@ -1,6 +1,7 @@
 'use client';
 
-import { motion } from 'framer-motion';
+import { useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 import Link from 'next/link';
 import { FadeIn, StaggerContainer, StaggerItem } from '@/components/animations';
 import { ArrowRight, ExternalLink, MessageSquare, Users, BookOpen, Brain, Code2, Zap } from 'lucide-react';
@@ -77,6 +78,12 @@ const services = [
 ];
 
 export default function ProductsPage() {
+    const [expandedFeature, setExpandedFeature] = useState<number | null>(null);
+
+    const toggleFeature = (index: number) => {
+        setExpandedFeature(expandedFeature === index ? null : index);
+    };
+
     return (
         <div className="relative pt-32">
             {/* Hero Section */}
@@ -136,26 +143,36 @@ export default function ProductsPage() {
                         </div>
                     </FadeIn>
 
-                    {/* Feature Cards */}
+                    {/* Feature Cards - Click to reveal description */}
                     <StaggerContainer className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                        {baraliFeatures.map((feature) => (
+                        {baraliFeatures.map((feature, index) => (
                             <StaggerItem key={feature.title}>
                                 <motion.div
-                                    className="group p-8 md:p-10 border border-white/10 bg-[#050505] hover:border-white/20 transition-all duration-500 relative overflow-hidden"
-                                    whileHover={{ y: -4 }}
+                                    onClick={() => toggleFeature(index)}
+                                    className="p-8 md:p-10 border border-white/10 bg-[#050505] transition-all duration-500 relative overflow-hidden cursor-pointer hover:border-white/20 hover:bg-[#0a0a0a]"
+                                    whileHover={{ y: -2 }}
                                 >
-
-
                                     <div className="relative">
-                                        <feature.icon size={24} className="text-[#B84C4C] mb-6" />
-                                        <h3 className="text-xl font-medium text-white mb-4 tracking-wide group-hover:translate-x-2 transition-transform duration-500">
+                                        <feature.icon size={22} className="text-[#B84C4C] mb-5" />
+                                        <h3 className="text-lg font-medium text-white mb-3 tracking-wide">
                                             {feature.title}
                                         </h3>
-                                        <div className="max-h-0 overflow-hidden group-hover:max-h-24 transition-all duration-500 ease-in-out">
-                                            <p className="text-sm text-white/60 leading-relaxed">
-                                                {feature.description}
-                                            </p>
-                                        </div>
+                                        <AnimatePresence>
+                                            {expandedFeature === index && (
+                                                <motion.p
+                                                    initial={{ opacity: 0, height: 0 }}
+                                                    animate={{ opacity: 1, height: 'auto' }}
+                                                    exit={{ opacity: 0, height: 0 }}
+                                                    transition={{ duration: 0.3, ease: 'easeOut' }}
+                                                    className="text-sm text-white/60 leading-relaxed overflow-hidden"
+                                                >
+                                                    {feature.description}
+                                                </motion.p>
+                                            )}
+                                        </AnimatePresence>
+                                        {expandedFeature !== index && (
+                                            <p className="text-xs text-white/30 mt-2">Click to learn more</p>
+                                        )}
                                     </div>
                                 </motion.div>
                             </StaggerItem>
@@ -188,56 +205,53 @@ export default function ProductsPage() {
                         {services.map((service, index) => (
                             <StaggerItem key={service.id}>
                                 <motion.div
-                                    whileHover={{ y: -4 }}
-                                    transition={{ duration: 0.3 }}
-                                    className="group border border-white/10 bg-[#0a0a0a] p-8 md:p-12 hover:border-white/20 transition-colors duration-500"
+                                    transition={{ duration: 0.5 }}
+                                    className="border border-white/10 bg-[#0a0a0a] p-6 md:p-8 transition-colors duration-700"
                                 >
                                     {/* Header */}
-                                    <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 mb-8">
-                                        <div className="flex items-center gap-6">
-                                            <span className="text-xs font-mono text-white/30">0{index + 1}</span>
-                                            <service.icon size={24} className="text-[#B84C4C]" />
-                                            <h3 className="text-2xl md:text-3xl font-light tracking-[0.1em] text-white group-hover:text-[#B84C4C] transition-colors duration-500">
+                                    <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6">
+                                        <div className="flex items-center gap-4">
+                                            <span className="text-[10px] font-mono text-white/30">0{index + 1}</span>
+                                            <service.icon size={20} className="text-[#B84C4C]" />
+                                            <h3 className="text-xl md:text-2xl font-light tracking-[0.05em] text-white">
                                                 {service.name}
                                             </h3>
                                         </div>
-                                        <div className="flex items-center gap-4">
-                                            <span className="text-xs text-white/40 font-mono">{service.category}</span>
-                                            <span className="w-12 h-[1px] bg-white/10" />
-                                            <span className={`text-[10px] font-mono border px-3 py-1.5 uppercase ${service.statusColor}`}>
+                                        <div className="flex items-center gap-3">
+                                            <span className="text-[10px] text-white/40 font-mono">{service.category}</span>
+                                            <span className="w-8 h-[1px] bg-white/10" />
+                                            <span className={`text-[9px] font-mono border px-2 py-1 uppercase ${service.statusColor}`}>
                                                 {service.status}
                                             </span>
                                         </div>
                                     </div>
 
                                     {/* Body */}
-                                    <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
+                                    <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                                         <div>
-                                            <p className="text-white/70 font-normal text-sm leading-relaxed mb-8">
+                                            <p className="text-white/60 font-normal text-xs leading-relaxed mb-6">
                                                 {service.description}
                                             </p>
                                             <Link
                                                 href="/contact"
-                                                className="inline-flex items-center gap-3 text-[10px] uppercase tracking-widest text-white border border-white/20 px-6 py-3 hover:border-[#B84C4C] hover:text-[#B84C4C] transition-all duration-300"
+                                                className="inline-flex items-center gap-2 text-[9px] uppercase tracking-widest text-white border border-white/20 px-5 py-2.5 hover:border-[#B84C4C] hover:text-[#B84C4C] transition-all duration-500"
                                             >
                                                 Get Started
-                                                <ArrowRight size={12} />
+                                                <ArrowRight size={10} />
                                             </Link>
                                         </div>
                                         <div>
-                                            <h4 className="text-[10px] uppercase tracking-widest text-white/40 mb-6">
+                                            <h4 className="text-[9px] uppercase tracking-widest text-white/40 mb-4">
                                                 What&apos;s Included
                                             </h4>
-                                            <div className="max-h-0 overflow-hidden group-hover:max-h-48 transition-all duration-500 ease-in-out">
-                                                <ul className="space-y-3">
-                                                    {service.features.map((feature, i) => (
-                                                        <li key={i} className="flex items-center gap-3 text-sm text-white/70 font-normal">
-                                                            <div className="w-1.5 h-1.5 bg-[#B84C4C] rounded-full" />
-                                                            {feature}
-                                                        </li>
-                                                    ))}
-                                                </ul>
-                                            </div>
+                                            <ul className="space-y-2">
+                                                {service.features.map((feature, i) => (
+                                                    <li key={i} className="flex items-center gap-2 text-xs text-white/60 font-normal">
+                                                        <div className="w-1 h-1 bg-[#B84C4C] rounded-full" />
+                                                        {feature}
+                                                    </li>
+                                                ))}
+                                            </ul>
                                         </div>
                                     </div>
                                 </motion.div>

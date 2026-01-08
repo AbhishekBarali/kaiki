@@ -47,15 +47,12 @@ export default function AboutPage() {
                         KAIKI
                     </motion.span>
                 </div>
-                <div className="absolute inset-0 flex items-center justify-center pointer-events-none z-0">
-                    <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[1px] h-[60vh] bg-gradient-to-b from-transparent via-white/5 to-transparent" />
-                </div>
+
 
                 {/* Content */}
                 <div className="relative z-10 w-full max-w-4xl flex flex-col items-center text-center">
                     <FadeIn>
                         <div className="flex flex-col items-center gap-4 mb-8">
-                            <div className="w-[1px] h-12 bg-white/30" />
                             <span className="font-[family-name:var(--font-display)] text-[10px] tracking-[0.4em] text-white/50 uppercase">
                                 About KAIKI
                             </span>
@@ -163,21 +160,19 @@ export default function AboutPage() {
                     <StaggerContainer className="grid grid-cols-1 md:grid-cols-3 gap-px bg-white/10 border border-white/10">
                         {missionItems.map((item) => (
                             <StaggerItem key={item.title}>
-                                <div className="bg-[#050505] p-12 hover:bg-[#080808] transition-colors duration-700 group relative overflow-hidden h-[400px] flex flex-col justify-between">
+                                <div className="bg-[#050505] p-12 transition-colors duration-700 relative overflow-hidden h-[400px] flex flex-col justify-between">
                                     <div className="flex items-start justify-between">
-                                        <span className="text-3xl font-[family-name:var(--font-display)] text-white/10 group-hover:text-[#B84C4C]/30 transition-colors duration-500">
+                                        <span className="text-3xl font-[family-name:var(--font-display)] text-[#B84C4C]/30">
                                             {item.number}
                                         </span>
                                     </div>
                                     <div>
-                                        <h3 className="text-lg font-[family-name:var(--font-display)] text-white mb-4 tracking-wide group-hover:translate-x-2 transition-transform duration-500">
+                                        <h3 className="text-lg sm:text-xl font-[family-name:var(--font-display)] text-white mb-4 tracking-wide">
                                             {item.title}
                                         </h3>
-                                        <div className="max-h-0 overflow-hidden group-hover:max-h-32 transition-all duration-500 ease-in-out">
-                                            <p className="text-white/70 font-normal text-sm leading-loose border-l border-white/20 pl-4">
-                                                {item.description}
-                                            </p>
-                                        </div>
+                                        <p className="text-white/70 font-normal text-sm sm:text-base leading-loose border-l border-[#B84C4C]/50 pl-4">
+                                            {item.description}
+                                        </p>
                                     </div>
                                 </div>
                             </StaggerItem>
@@ -202,18 +197,15 @@ export default function AboutPage() {
                         {values.map((value, i) => (
                             <StaggerItem key={value.title}>
                                 <motion.div
-                                    className="group p-8 border border-white/5 hover:border-white/10 transition-all duration-500 bg-[#0a0a0a]/50"
-                                    whileHover={{ y: -4 }}
+                                    className="p-8 border border-white/5 transition-all duration-500 bg-[#0a0a0a]/50"
                                 >
                                     <div className="flex items-start gap-6">
-                                        <span className="text-xs font-mono text-[#B84C4C]">0{i + 1}</span>
+                                        <span className="text-sm font-mono text-[#B84C4C]">0{i + 1}</span>
                                         <div>
-                                            <h3 className="text-lg font-medium text-white mb-2 group-hover:translate-x-2 transition-transform duration-500">
+                                            <h3 className="text-lg sm:text-xl font-medium text-white mb-3">
                                                 {value.title}
                                             </h3>
-                                            <div className="max-h-0 overflow-hidden group-hover:max-h-16 transition-all duration-500 ease-in-out">
-                                                <p className="text-sm text-white/60">{value.desc}</p>
-                                            </div>
+                                            <p className="text-sm sm:text-base text-white/60">{value.desc}</p>
                                         </div>
                                     </div>
                                 </motion.div>
