@@ -78,7 +78,7 @@ export default function AboutPage() {
                     <FadeIn delay={0.3}>
                         <div className="mt-12 flex items-center gap-4">
                             <div className="h-[1px] w-12 bg-[#B84C4C]" />
-                            <span className="text-xs font-mono text-white/50">Est. 2024</span>
+                            <span className="text-xs font-mono text-white/50">Est. 2025</span>
                             <div className="h-[1px] w-12 bg-[#B84C4C]" />
                         </div>
                     </FadeIn>
@@ -173,9 +173,11 @@ export default function AboutPage() {
                                         <h3 className="text-lg font-[family-name:var(--font-display)] text-white mb-4 tracking-wide group-hover:translate-x-2 transition-transform duration-500">
                                             {item.title}
                                         </h3>
-                                        <p className="text-white/70 font-normal text-sm leading-loose border-l border-white/20 pl-4">
-                                            {item.description}
-                                        </p>
+                                        <div className="max-h-0 overflow-hidden group-hover:max-h-32 transition-all duration-500 ease-in-out">
+                                            <p className="text-white/70 font-normal text-sm leading-loose border-l border-white/20 pl-4">
+                                                {item.description}
+                                            </p>
+                                        </div>
                                     </div>
                                 </div>
                             </StaggerItem>
@@ -209,7 +211,9 @@ export default function AboutPage() {
                                             <h3 className="text-lg font-medium text-white mb-2 group-hover:translate-x-2 transition-transform duration-500">
                                                 {value.title}
                                             </h3>
-                                            <p className="text-sm text-white/60">{value.desc}</p>
+                                            <div className="max-h-0 overflow-hidden group-hover:max-h-16 transition-all duration-500 ease-in-out">
+                                                <p className="text-sm text-white/60">{value.desc}</p>
+                                            </div>
                                         </div>
                                     </div>
                                 </motion.div>

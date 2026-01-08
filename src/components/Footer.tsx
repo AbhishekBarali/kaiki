@@ -29,7 +29,7 @@ export default function Footer() {
                     <p className="text-[10px] text-white/40 font-mono uppercase tracking-widest max-w-xs leading-relaxed">
                         AI Intelligence Lab
                         <br />
-                        Est. 2024
+                        Est. 2025
                     </p>
                 </div>
 
@@ -63,7 +63,7 @@ export default function Footer() {
 
                 {/* Copyright */}
                 <div className="text-[9px] text-white/30 font-mono uppercase tracking-widest md:self-end">
-                    © 2024 KAIKI Labs Inc.
+                    © 2025 KAIKI Labs Inc.
                 </div>
             </div>
         </footer>

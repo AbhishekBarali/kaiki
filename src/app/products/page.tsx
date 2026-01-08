@@ -151,9 +151,11 @@ export default function ProductsPage() {
                                         <h3 className="text-xl font-medium text-white mb-4 tracking-wide group-hover:translate-x-2 transition-transform duration-500">
                                             {feature.title}
                                         </h3>
-                                        <p className="text-sm text-white/60 leading-relaxed">
-                                            {feature.description}
-                                        </p>
+                                        <div className="max-h-0 overflow-hidden group-hover:max-h-24 transition-all duration-500 ease-in-out">
+                                            <p className="text-sm text-white/60 leading-relaxed">
+                                                {feature.description}
+                                            </p>
+                                        </div>
                                     </div>
                                 </motion.div>
                             </StaggerItem>
@@ -226,14 +228,16 @@ export default function ProductsPage() {
                                             <h4 className="text-[10px] uppercase tracking-widest text-white/40 mb-6">
                                                 What&apos;s Included
                                             </h4>
-                                            <ul className="space-y-3">
-                                                {service.features.map((feature, i) => (
-                                                    <li key={i} className="flex items-center gap-3 text-sm text-white/70 font-normal">
-                                                        <div className="w-1.5 h-1.5 bg-[#B84C4C] rounded-full" />
-                                                        {feature}
-                                                    </li>
-                                                ))}
-                                            </ul>
+                                            <div className="max-h-0 overflow-hidden group-hover:max-h-48 transition-all duration-500 ease-in-out">
+                                                <ul className="space-y-3">
+                                                    {service.features.map((feature, i) => (
+                                                        <li key={i} className="flex items-center gap-3 text-sm text-white/70 font-normal">
+                                                            <div className="w-1.5 h-1.5 bg-[#B84C4C] rounded-full" />
+                                                            {feature}
+                                                        </li>
+                                                    ))}
+                                                </ul>
+                                            </div>
                                         </div>
                                     </div>
                                 </motion.div>

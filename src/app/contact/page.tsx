@@ -70,8 +70,8 @@ export default function ContactPage() {
                                     </div>
                                     <div>
                                         <h3 className="text-[10px] uppercase tracking-widest text-white/40 mb-2">Email</h3>
-                                        <a href="mailto:hello@kaiki.dev" className="text-white hover:text-[#B84C4C] transition-colors">
-                                            hello@kaiki.dev
+                                        <a href="mailto:abhishekbaraliwork@gmail.com" className="text-white hover:text-[#B84C4C] transition-colors">
+                                            abhishekbaraliwork@gmail.com
                                         </a>
                                     </div>
                                 </div>
@@ -83,9 +83,7 @@ export default function ContactPage() {
                                     <div>
                                         <h3 className="text-[10px] uppercase tracking-widest text-white/40 mb-2">Location</h3>
                                         <p className="text-white font-light">
-                                            Remote-First
-                                            <br />
-                                            <span className="text-white/50 text-sm">Tokyo / San Francisco</span>
+                                            Kathmandu, Nepal
                                         </p>
                                     </div>
                                 </div>

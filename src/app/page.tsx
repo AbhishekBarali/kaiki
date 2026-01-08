@@ -9,20 +9,20 @@ import { ArrowRight, Code2, Sparkles, Shield, Braces, Terminal, Cpu } from 'luci
 const philosophyItems = [
   {
     number: '01',
-    title: 'Eliminate Repetition',
-    description: 'Say goodbye to boring, repetitive tasks. We build automation that handles the mundane so you can focus on what actually matters.',
+    title: 'Save Your Time',
+    description: 'Stop wasting hours on repetitive tasks. We build automation that handles the boring stuff so you can focus on growing your business.',
     icon: Code2,
   },
   {
     number: '02',
-    title: 'AI-Powered Efficiency',
-    description: 'Integrate intelligent systems into your workflow. From smart assistants to automated processes—work smarter, not harder.',
+    title: 'Real ROI, Not Gimmicks',
+    description: 'Practical AI solutions that actually deliver value. No flashy demos that never work—just tools that save you time and money.',
     icon: Sparkles,
   },
   {
     number: '03',
-    title: 'Built to Last',
-    description: 'Clean architecture, scalable design, future-proof technology. We craft software that grows with your business.',
+    title: 'Built for Small Business',
+    description: 'Solutions designed for your scale and budget. Enterprise-quality automation without the enterprise price tag.',
     icon: Shield,
   },
 ];
@@ -33,21 +33,21 @@ const services = [
     category: 'Platforms',
     status: 'Active',
     statusColor: 'text-emerald-400 border-emerald-400/30 bg-emerald-400/10',
-    description: 'Intelligent applications with custom AI personalities, chat interfaces, and automation built-in.',
+    description: 'Ready-to-use AI tools that solve real business problems. No complexity, just results.',
   },
   {
-    name: 'WEB APPLICATIONS',
-    category: 'Development',
-    status: 'Active',
-    statusColor: 'text-[#B84C4C] border-[#B84C4C]/30',
-    description: 'Modern, responsive web apps built with cutting-edge technologies. From landing pages to complex platforms.',
-  },
-  {
-    name: 'AI AUTOMATION',
+    name: 'AUTOMATION',
     category: 'Services',
     status: 'Active',
     statusColor: 'text-[#B84C4C] border-[#B84C4C]/30',
-    description: 'Streamline workflows with intelligent automation. Custom AI agents and tools tailored to your needs.',
+    description: 'Eliminate repetitive tasks and free up your team. Custom automation tailored to your workflows.',
+  },
+  {
+    name: 'AI INTEGRATION',
+    category: 'Services',
+    status: 'Active',
+    statusColor: 'text-[#B84C4C] border-[#B84C4C]/30',
+    description: 'Add AI capabilities to your existing systems. Smart assistants, data analysis, and more.',
   },
 ];
 
@@ -109,14 +109,14 @@ export default function HomePage() {
 
             {/* Tagline */}
             <h2 className="text-base sm:text-lg md:text-2xl font-light text-white tracking-wide">
-              Crafting intelligent software.
+              Automation for small businesses.
             </h2>
 
             <p className="max-w-sm sm:max-w-md text-sm md:text-base font-normal leading-relaxed text-white/70 mt-1 sm:mt-2 px-2">
-              AI-powered apps, automation, and tools
+              Save time. Cut costs. Get real ROI.
               <br className="hidden sm:block" />
               <span className="sm:hidden"> </span>
-              that work for you.
+              AI that actually works for your business.
             </p>
 
             {/* CTA Buttons */}
@@ -167,9 +167,9 @@ export default function HomePage() {
           <div className="md:col-span-8 flex flex-col gap-12 sm:gap-20 md:gap-32">
             <FadeIn className="md:ml-[-2rem]">
               <h2 className="text-2xl sm:text-3xl md:text-5xl font-light text-white leading-tight mb-4 sm:mb-6 md:mb-8">
-                The way of the craftsman.
+                Work smarter, not harder.
                 <br />
-                <span className="text-white/40">Software as art.</span>
+                <span className="text-white/40">Automation that delivers.</span>
               </h2>
             </FadeIn>
 
@@ -183,9 +183,11 @@ export default function HomePage() {
                     <h3 className="text-xl font-normal text-white mb-4 tracking-wide group-hover:translate-x-2 transition-transform duration-500">
                       {item.title}
                     </h3>
-                    <p className="text-sm leading-7 text-white/60 font-normal border-l border-white/10 pl-6 py-2 group-hover:border-[#B84C4C]/50 transition-colors duration-500">
-                      {item.description}
-                    </p>
+                    <div className="max-h-0 overflow-hidden group-hover:max-h-32 transition-all duration-500 ease-in-out">
+                      <p className="text-sm leading-7 text-white/60 font-normal border-l border-white/10 pl-6 py-2 group-hover:border-[#B84C4C]/50 transition-colors duration-500">
+                        {item.description}
+                      </p>
+                    </div>
                   </div>
                 </StaggerItem>
               ))}
@@ -205,16 +207,16 @@ export default function HomePage() {
               Intelligent Solutions
             </h2>
             <p className="text-white/60 font-normal text-sm sm:text-base max-w-md sm:max-w-xl mx-auto leading-relaxed px-2">
-              From AI platforms to custom web applications. We craft software that feels alive.
+              Practical AI solutions for small businesses. Save time, cut costs, get results.
             </p>
           </FadeIn>
 
           {/* Service Icons */}
           <StaggerContainer className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 sm:gap-6 md:gap-8 mb-10 sm:mb-16">
             {[
-              { title: 'AI Products', desc: 'Intelligent platforms and tools', icon: Cpu },
-              { title: 'Web Apps', desc: 'Modern, responsive applications', icon: Braces },
-              { title: 'Automation', desc: 'Workflows that work for you', icon: Terminal },
+              { title: 'AI Products', desc: 'Ready-to-use intelligent tools', icon: Cpu },
+              { title: 'Automation', desc: 'Eliminate repetitive tasks', icon: Braces },
+              { title: 'Integration', desc: 'Add AI to your systems', icon: Terminal },
             ].map((item) => (
               <StaggerItem key={item.title}>
                 <motion.div
@@ -299,10 +301,10 @@ export default function HomePage() {
                 <div className="max-w-sm sm:max-w-md">
                   <h4 className="text-lg sm:text-xl text-white font-light mb-3 sm:mb-4">Start Your Project</h4>
                   <p className="text-xs sm:text-sm text-white/50 leading-relaxed font-normal">
-                    Have an idea? Let's build something intelligent together.
+                    Ready to automate your business?
                     <br className="hidden sm:block" />
                     <span className="sm:hidden"> </span>
-                    We work with startups and enterprises alike.
+                    Let's build something that saves you time and money.
                   </p>
                 </div>
                 <Link
